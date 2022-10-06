@@ -33,7 +33,7 @@ public class User {
     @Column(name = "UpdateBy")
     private String UpdateBy;
 
-    @Column(name = "updateDate")
+    @Column(name = "UpdateDate")
     private Date UpdateDate;
 
     @Column(name = "status")
@@ -111,16 +111,15 @@ public class User {
     public Date getUpdateDate() {
         return UpdateDate;
     }
-
-    public void setUpdateDate(Date updateDate) {
-        UpdateDate = updateDate;
-    }
-
+    
     public int getStatus() {
         return Status;
     }
 
     public void setStatus(int status) {
         Status = status;
+    }
+
+    public void setUpdateDate(Date updateDate) {
     }
 }

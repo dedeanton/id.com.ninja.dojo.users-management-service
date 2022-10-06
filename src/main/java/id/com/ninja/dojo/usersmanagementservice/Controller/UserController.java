@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-
+//@CrossOrigin(origins="http://localhost:8080")
 @RestController
 @RequestMapping("/api")
 public class UserController {
@@ -19,69 +19,69 @@ public class UserController {
     @Autowired
     UserRepository userRepository;
 
-    @GetMapping("/Users")
-    public ResponseEntity<List<User>> getAllUsers(@RequestParam(required = false) String title) {
+    @GetMapping("/User")
+    public ResponseEntity<List<User>> getAllUser(@RequestParam(required = false) String user) {
         try {
-            List<User> users = new ArrayList<User>();
+            List<User> User = new ArrayList<User>();
 
 
-                userRepository.findAll().forEach(users::add);
+                userRepository.findAll().forEach(User::add);
 
 
-            if (users.isEmpty()) {
+            if (User.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
 
-            return new ResponseEntity<>(users, HttpStatus.OK);
+            return new ResponseEntity<>(User, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @GetMapping("/users/{id}")
-    public ResponseEntity<User> getTutorialById(@PathVariable("id") Integer id) {
-        Optional<User> userData = userRepository.findById(id);
+    @GetMapping("/User/{id}")
+    public ResponseEntity<User> getUserById(@PathVariable("id") Integer id) {
+        Optional<User> UserData = userRepository.findById(id);
 
-        if (userData.isPresent()) {
-            return new ResponseEntity<>(userData.get(), HttpStatus.OK);
+        if (UserData.isPresent()) {
+            return new ResponseEntity<>(UserData.get(), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
-    @PostMapping("/users")
-    public ResponseEntity<User> createTutorial(@RequestBody User user) {
+    @PostMapping("/User")
+    public ResponseEntity<User> createUser(@RequestBody User User) {
         try {
-            User _user = userRepository
-                    .save(user);
-            return new ResponseEntity<>(_user, HttpStatus.CREATED);
+            User _User = userRepository
+                    .save(User);
+            return new ResponseEntity<>(_User, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @PutMapping("/users/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable("id") Integer id, @RequestBody User user) {
-        Optional<User> userData = userRepository.findById(id);
+    @PutMapping("/User/{id}")
+    public ResponseEntity<User> updateUser(@PathVariable("id") Integer id, @RequestBody User User) {
+        Optional<User> UserData = userRepository.findById(id);
 
-        if (userData.isPresent()) {
-            User _user = userData.get();
-            _user.setEmail(user.getEmail());
-            _user.setCreateBy(user.getCreateBy());
-            _user.setCreateDate(user.getCreateDate());
-            _user.setUserName(user.getUserName());
-            _user.setPassword(user.getPassword());
-            _user.setRoleId(user.getRoleId());
-            _user.setUpdateBy(user.getUpdateBy());
-            _user.setUpdateDate(user.getUpdateDate());
-            _user.setStatus(user.getStatus());
+        if (UserData.isPresent()) {
+            User _user = UserData.get();
+            _user.setEmail(User.getEmail());
+            _user.setCreateBy(User.getCreateBy());
+            _user.setCreateDate(User.getCreateDate());
+            _user.setUserName(User.getUserName());
+            _user.setPassword(User.getPassword());
+            _user.setRoleId(User.getRoleId());
+            _user.setUpdateBy(User.getUpdateBy());
+            _user.setUpdateDate(User.getUpdateDate());
+            _user.setStatus(User.getStatus());
             return new ResponseEntity<>(userRepository.save(_user), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
-    @DeleteMapping("/users/{id}")
+    @DeleteMapping("/User/{id}")
     public ResponseEntity<HttpStatus> deleteUser(@PathVariable("id") Integer id) {
         try {
             userRepository.deleteById(id);
@@ -91,8 +91,8 @@ public class UserController {
         }
     }
 
-    @DeleteMapping("/users")
-    public ResponseEntity<HttpStatus> deleteAllUsers() {
+    @DeleteMapping("/User")
+    public ResponseEntity<HttpStatus> deleteAllUser() {
         try {
             userRepository.deleteAll();
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
